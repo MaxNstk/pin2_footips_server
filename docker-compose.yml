@@ -1,0 +1,38 @@
+version: '3'
+services:
+  django:  &django
+    environment:
+      - DEBUG=True
+    restart: always
+    build: 
+      context: .
+      dockerfile: ./Dockerfile
+    command: >
+                sh -c "
+                python manage.py migrate &&
+                python manage.py runserver 0.0.0.0:${HOST_PORT}
+                "
+    volumes:
+    - .:/code
+    - media_volume:/code/media
+
+    ports:
+    - ${HOST_PORT}:${HOST_PORT}
+    depends_on:
+    - db
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    hostname: ${DB_HOST}
+    ports:
+      - "${DB_PORT}:${DB_PORT}"
+    expose:
+      - "${DB_PORT}:${DB_PORT}"
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+volumes:
+  my-db:
+  media_volume:
