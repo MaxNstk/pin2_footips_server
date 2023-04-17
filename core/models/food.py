@@ -7,3 +7,4 @@ class Food(models.Model):
     carbohydrate = models.FloatField()
     proteins = models.FloatField()
     snack_type = models.IntegerField()
+    food_type = models.ForeignKey('FoodType', on_delete=models.DO_NOTHING)
