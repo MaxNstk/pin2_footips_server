@@ -36,7 +36,6 @@ router.register(r'recommendation', RecommendationViewSet, 'Recommendation')
 router.register(r'staredfood', StaredFoodViewSet, 'StaredFood')
 router.register(r'foodtype', FoodTypeViewSet, 'FoodType')
 router.register(r'userinfo', UserInfoViewSet, 'UserInfo')
-# router.register(r'food', )
 # router.register(r'accounts', AccountViewSet)
 
 urlpatterns = [
