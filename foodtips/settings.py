@@ -26,8 +26,7 @@ SECRET_KEY = 'django-insecure-7$!o5-fb-f#+prq3&bg@hjv9di1wmw^%lm!r4#($i83^x+7qu@
 # SECURITY WARNING: don't run with debug turned on in Foodion!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
