@@ -1,4 +1,4 @@
-version: '3'
+version: '3.3'
 services:
   django:  &django
     environment:
@@ -10,6 +10,7 @@ services:
     command: >
                 sh -c "
                 python manage.py migrate &&
+                python manage.py add_initial_foods &&
                 python manage.py runserver 0.0.0.0:${HOST_PORT}
                 "
     volumes:
@@ -18,19 +19,20 @@ services:
     ports:
     - ${HOST_PORT}:${HOST_PORT}
     depends_on:
-    - db
-  db:
+    - postgres
+  postgres:
+    container_name: postgres
     image: postgres:latest
+    restart: always
     environment:
-      - POSTGRES_USER=${DB_USER}
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
-      - POSTGRES_DB=${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+      PGPORT: ${DB_PORT}
     ports:
-      - ${DB_PORT}:${DB_PORT}
-    expose:
-      - ${DB_PORT}:${DB_PORT}
+      - ${DB_PORT}:5432
     volumes:
-      - pgdata:/var/lib/postgresql/data
+    - pgdata:/var/lib/postgresql/data
 volumes:
-  pgdata:
   media_volume:
+  pgdata:
