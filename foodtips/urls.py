@@ -27,6 +27,7 @@ from core.api.viewsets.food_type_viewset import FoodTypeViewSet
 from core.api.viewsets.recommendation_viewset import RecommendationViewSet
 from core.api.viewsets.stared_food import StaredFoodViewSet
 from core.api.viewsets.user_info_viewset import UserInfoViewSet
+from core.api.viewsets.user_viewset import UserViewSet
 
 router = SimpleRouter()
 
@@ -36,6 +37,7 @@ router.register(r'recommendation', RecommendationViewSet, 'Recommendation')
 router.register(r'staredfood', StaredFoodViewSet, 'StaredFood')
 router.register(r'foodtype', FoodTypeViewSet, 'FoodType')
 router.register(r'userinfo', UserInfoViewSet, 'UserInfo')
+router.register(r'user', UserViewSet, 'User')
 # router.register(r'accounts', AccountViewSet)
 
 urlpatterns = [
