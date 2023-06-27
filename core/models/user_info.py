@@ -8,4 +8,9 @@ class UserInfo(models.Model):
     user = models.ForeignKey('User', on_delete=models.DO_NOTHING)
     imc = models.FloatField()
 
+    def save(self, *args, **kwargs):
+        if self.heigth and self.weight:
+            self.imc = self.weight / (self.heigth*self.heigth)
+        super().save(*args, **kwargs)
+
 
