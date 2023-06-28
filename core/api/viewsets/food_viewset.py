@@ -32,6 +32,10 @@ class FoodViewSet(LoginRequiredModelViewSet):
             queryset = queryset.order_by('-protein')
         elif request.GET.get('slimming'):
             queryset = queryset.order_by('calories')
+        elif request.GET.get('is_stared'):
+            stared_foods = StaredFood.objects.filter(user=request.user).values_list('food',flat=True)
+            queryset = Food.objects.filter(id__in=(stared_foods))
+
 
         page = self.paginate_queryset(queryset)
         if page is not None:
