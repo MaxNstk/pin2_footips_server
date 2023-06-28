@@ -11,7 +11,7 @@ class UserInfo(models.Model):
     def save(self, *args, **kwargs):
         try:
             if self.heigth and self.weight:
-                self.imc = self.weight / (self.heigth*self.heigth)
+                self.imc = self.heigth / (self.weight*self.weight)
         except: pass
         
         super().save(*args, **kwargs)
