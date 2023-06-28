@@ -23,3 +23,21 @@ class FoodViewSet(LoginRequiredModelViewSet):
             food.delete()
             return Response('deleted',status.HTTP_200_OK)
         return Response(response,status.HTTP_200_OK)
+
+    def list(self, request, *args, **kwargs):
+
+        queryset = self.filter_queryset(self.get_queryset())
+
+        if request.GET.get('hypertrophy'):
+            queryset = queryset.order_by('-protein')
+        elif request.GET.get('slimming'):
+            queryset = queryset.order_by('calories')
+
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+
