@@ -10,6 +10,6 @@ class UserInfoViewSet(LoginRequiredModelViewSet):
     queryset = UserInfo.objects.all()
 
     def list(self, request, *args, **kwargs):
-        user, created = UserInfo.objects.get_or_create(user = request.user)
-        serializer = self.get_serializer(user)
+        user_info, created = UserInfo.objects.get_or_create(user = request.user)
+        serializer = self.get_serializer(user_info)
         return Response(serializer.data)    
